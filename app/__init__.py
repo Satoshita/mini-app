@@ -16,9 +16,12 @@ load_dotenv()
 def create_app():
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret')
     app.config['DEBUG'] = os.environ.get('FLASK_DEBUG') == '1'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///people.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+        'DATABASE_URL',
+        'sqlite:///people.db'   # ローカル用フォールバック
+    )
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     csrf.init_app(app)
