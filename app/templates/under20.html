@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Under20{% endblock %}
+
+{% block content %}
+  <h2>２０歳未満</h2>
+  <hr>
+     {% for p in people %}
+        <p>{{p.name}} - {{p.age}}歳</p>
+     {% endfor %}
+
+  <br><a href="{{ url_for('main.index') }}">戻る</a>
+
+{% endblock %}
